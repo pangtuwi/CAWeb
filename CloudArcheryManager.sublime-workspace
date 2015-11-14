@@ -1,0 +1,509 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Firebase",
+				"FirebaseRef"
+			],
+			[
+				"l",
+				"log"
+			],
+			[
+				"cre",
+				"createdAt"
+			],
+			[
+				"this",
+				"thisRound"
+			],
+			[
+				"new",
+				"newUser"
+			],
+			[
+				"pass",
+				"passwordInt"
+			],
+			[
+				"fo",
+				"for	for (…) {…}"
+			],
+			[
+				"pa",
+				"passwordInt"
+			],
+			[
+				"Firbase",
+				"FirebaseClubRef"
+			],
+			[
+				"use",
+				"userObj"
+			],
+			[
+				"users",
+				"usersRef"
+			],
+			[
+				"Fi",
+				"FirebaseClubRef"
+			],
+			[
+				"get",
+				"getScript"
+			],
+			[
+				"em",
+				"emailRef"
+			],
+			[
+				"first",
+				"firstnameRef"
+			],
+			[
+				"su",
+				"surnameRef"
+			],
+			[
+				"name",
+				"nameRef"
+			],
+			[
+				"Fir",
+				"FirstName"
+			],
+			[
+				"Fire",
+				"FirebaseClubRef"
+			],
+			[
+				"a",
+				"buttonAddUser"
+			],
+			[
+				"on",
+				"onclick	Attr"
+			],
+			[
+				"fi",
+				"firebaseEmail"
+			],
+			[
+				"f",
+				"FirebaseEmail"
+			],
+			[
+				"Authen",
+				"Authentication"
+			],
+			[
+				"cds_",
+				"cds_getCookieClubName"
+			],
+			[
+				"cl",
+				"clubName"
+			],
+			[
+				"cook",
+				"cookieName"
+			],
+			[
+				"cds",
+				"cds_checkAuthentication"
+			],
+			[
+				"Fireba",
+				"FirebasePassword"
+			],
+			[
+				"fire",
+				"FirebaseEmail"
+			],
+			[
+				"ch",
+				"checkAuthentication"
+			],
+			[
+				"fir",
+				"FirebaseClubRef"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"i",
+				"id	Attr"
+			],
+			[
+				"h",
+				"href	Attr"
+			],
+			[
+				"n",
+				"name"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"p",
+				"php"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 4943,
+				"line_ending": "Unix",
+				"name": "<?php"
+			}
+		},
+		{
+			"file": "cds/cds.js",
+			"settings":
+			{
+				"buffer_size": 11098,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "details.html",
+			"settings":
+			{
+				"buffer_size": 1248,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "details.js",
+			"settings":
+			{
+				"buffer_size": 21,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/paulwilliams/Sites"
+	],
+	"file_history":
+	[
+		"/Users/paulwilliams/Sites/rounds.html",
+		"/Users/paulwilliams/Sites/rounds.js",
+		"/Users/paulwilliams/Sites/messages.js",
+		"/Users/paulwilliams/Sites/messages.html",
+		"/Users/paulwilliams/Sites/js/helper.js",
+		"/Users/paulwilliams/Sites/users.html",
+		"/Users/paulwilliams/Sites/CloudArcheryManager.sublime-project",
+		"/Users/paulwilliams/Sites/details.html",
+		"/Users/paulwilliams/Downloads/cadev-export (2).json",
+		"/Users/paulwilliams/Sites/login.js",
+		"/Users/paulwilliams/Sites/index.js",
+		"/Users/paulwilliams/Sites/firebase/firebase.js",
+		"/Users/paulwilliams/Sites/firebase/Firebase2.3.0.js",
+		"/Users/paulwilliams/Sites/ratchet/dist/css/ratchet-theme-ios.css",
+		"/Users/paulwilliams/Sites/users.js",
+		"/Users/paulwilliams/Sites/login.html",
+		"/Users/paulwilliams/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/paulwilliams/Sites/firebase/cds.js",
+		"/Users/paulwilliams/Documents/Cloud Archery Web 2015-05-28/Final/scores.php",
+		"/Users/paulwilliams/Documents/Cloud Archery Web 2015-05-28/Final/header.php",
+		"/Users/paulwilliams/Sites/ratchet/dist/css/ratchet.css",
+		"/Users/paulwilliams/Sites/ratchet/dist/css/ratchet.min.css",
+		"/Users/paulwilliams/Sites/ratchet/dist/css/ratchet-theme-ios.min.css",
+		"/Users/paulwilliams/Sites/css/rat_app.css",
+		"/Users/paulwilliams/Sites/dist/fonts/ratchicons.svg",
+		"/Users/paulwilliams/myapp/www/index.html"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"navigate-",
+			"password",
+			"u ",
+			"u",
+			"Firebase",
+			"label",
+			"input-row",
+			"databaseconn",
+			"card",
+			"modal"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4943,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								796,
+								796
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<?php",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "cds/cds.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11098,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								90,
+								90
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "details.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1248,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								951,
+								951
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "details.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								18,
+								18
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "CloudArcheryManager.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 198.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

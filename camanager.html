@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CloudArchery Club Manager</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="ratchet/dist/css/ratchet.min.css">
+    <link rel="stylesheet" href="ratchet/dist/css/ratchet-theme-ios.min.css">
+    <link rel="stylesheet" href="css/rat_app.css">
+
+    <script src="ratchet/dist/js/ratchet.min.js"></script>
+    <script src="jquery/jquery-2.1.4.min.js"></script>
+    <!--<script src="https://cdn.firebase.com/js/client/2.3.0/firebase.js"></script>-->
+    <script src="firebase/firebase2.3.0.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="cds/cds.js"></script>
+
+    <script>
+      cds_checkDatabaseConnection();
+      cds_checkAuthentication();
+
+      var loadUserData = function(){
+          cds_getUsersList();
+      }; //loadUserData
+
+      var addPageJS = function(){
+        var elm = document.getElementsByClassName("content")[0];
+        var script = elm.id;
+        console.log ("looking for script : " + elm.id+".js");
+        if(script) {
+          $.getScript(elm.id+".js", function (data,  textStatus, jqxhr ) {
+            //console.log( data ); // Data returned
+            console.log(" : getScript returned = "+ textStatus ); // Success
+            //console.log( jqxhr.status ); // 200
+            //console.log( "Load was performed." );
+          });
+        };
+      };  //addPageJS
+
+      
+
+      window.addEventListener('push', loadUserData);
+      window.addEventListener('push', addPageJS);
+    </script>
+
+  </head>
+
+  <body>
+    <header class="bar bar-nav">
+      <a class="icon icon-refresh pull-right"></a>
+      <h1 class="title">CloudArchery Club Manager</h1>
+    </header>
+
+    <div class="bar bar-footer">
+      <a  class="icon icon-compose pull-right" href="#composeModal"></a>
+      <small id="databaseConnection" class="updated-text">connecting...</small>
+    </div>
+
+    <div id="index" class="content">
+
+      <h5 class="content-padded">Your Club</h5>
+      <ul class="table-view">
+        <li class="table-view-cell media">
+          <a class="navigate-right" href="details.html" data-transition="slide-in">
+            <span class="media-object icon icon-pages pull-left"></span>
+            <div class="media-body">
+              Club Details
+            </div>
+          </a>
+        </li>
+        <li class="table-view-cell media">
+          <a class="navigate-right" href="users.html" data-transition="slide-in">
+            <span class="media-object icon icon-person pull-left"></span>
+            <div class="media-body">
+              User Manager
+            </div>
+          </a>
+        </li>
+        <li class="table-view-cell media">
+          <a class="navigate-right" href="login.html" data-transition="slide-in">
+            <span class="media-object icon icon-star-filled pull-left"></span>
+            <div class="media-body">
+              Club Stats
+            </div>
+          </a>
+        </li>
+        <li class="table-view-cell media">
+          <a class="navigate-right" href="messages.html" data-transition="slide-in">
+            <span class="media-object icon icon-compose pull-left"></span>
+            <div class="media-body">
+              Messages
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <h5 class="content-padded">COMPETITION ROUNDS</h5>
+
+      <ul class="table-view">
+        <li class="table-view-cell media">
+          <a class="navigate-right" href="inbox.html" data-transition="slide-in">
+            <span class="media-object icon icon-share pull-left"></span>
+            <div class="media-body">
+              Create Round
+            </div>
+          </a>
+        </li>
+        <li class="table-view-cell media">
+          <a class="navigate-right" href="rounds.html" data-transition="slide-in">
+            <span class="media-object icon icon-list pull-left"></span>
+            <div class="media-body">
+              View Round Scores
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div><!-- /.content -->
+
+    <!-- Compose modal -->
+    <div id="composeModal" class="modal">
+      <header class="bar bar-nav">
+        <a class="btn btn-link pull-right" href="#composeModal">
+          <strong>Send</strong>
+        </a>
+        <a class="btn btn-link pull-left" href="#composeModal">
+          Cancel
+        </a>
+        <h1 class="title">New message</h1>
+      </header>
+
+      <div class="content">
+        <form class="input-group">
+          <input type="text" placeholder="To:">
+          <input type="email" placeholder="From:">
+          <input type="text" placeholder="Subject:">
+          <textarea rows="20"></textarea>
+        </form>
+      </div>
+    </div><!-- /.modal -->
+  </body>
+</html>

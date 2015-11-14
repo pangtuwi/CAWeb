@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CloudArchery Mobile Web</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="ratchet/dist/css/ratchet.min.css">
+    <!--<link rel="stylesheet" href="ratchet/dist/css/ratchet-theme-ios.min.mod.css">-->
+
+    <link rel="stylesheet" href="css/rat_app.css">
+
+    <script src="ratchet/dist/js/ratchet.min.js"></script>
+  <!--  <script src="jquery/jquery-2.1.4.min.js"></script>
+    <!--<script src="https://cdn.firebase.com/js/client/2.3.0/firebase.js"></script>-->
+    <script src="firebase/firebase2.3.0.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="js/lds.js"></script>
+    <script src="js/cds.js"></script>
+
+    <script>
+
+      cds_checkDatabaseConnection();
+
+      var loadUserData = function(){
+          cds_getUsersList();
+      }; //loadUserData
+
+
+      var addPageJS = function(){
+        var elm = document.getElementsByClassName("content")[0];
+        var script = elm.id;
+        console.log ("looking for script : " + elm.id+".js");
+        if(script) {
+          $.getScript(elm.id+".js", function (data,  textStatus, jqxhr ) {
+            //console.log( data ); // Data returned
+            console.log(" : getScript returned = "+ textStatus ); // Success
+            //console.log( jqxhr.status ); // 200
+            //console.log( "Load was performed." );
+          });
+        };
+      };  //addPageJS
+
+      
+
+      window.addEventListener('push', loadUserData);
+      window.addEventListener('push', addPageJS);
+    </script>
+
+  </head>
+
+  <body>
+    <header class="bar bar-nav">
+      <!--<a class="icon icon-refresh pull-right"></a>-->
+      <h1 class="title">CloudArchery</h1>
+    </header>
+
+    <div class="bar bar-footer">
+      <small id="databaseConnection" class="updated-text">checking for database connection...</small>
+    </div>
+
+    <div id="caweb" class="content">
+
+      <h5 class="content-padded">ROUNDS</h5>
+      <ul class="table-view">
+        <li class="table-view-cell media">
+          <a class="navigate-right" href="caweb/myrounds.html" data-transition="slide-in">
+            <span class="media-object icon icon-pages pull-left"></span>
+            <div class="media-body">
+              My Rounds
+            </div>
+          </a>
+        </li>
+        <li class="table-view-cell media">
+          <a class="navigate-right" href="caweb/createround.html" data-transition="slide-in">
+            <span class="media-object icon icon-plus pull-left"></span>
+            <div class="media-body">
+              Create Round
+            </div>
+          </a>
+        </li>
+        <li class="table-view-cell media">
+          <a class="navigate-right" href="caweb/joinlist.html" data-transition="slide-in">
+            <span class="media-object icon icon-check pull-left"></span>
+            <div class="media-body">
+              Join Round
+            </div>
+          </a>
+        </li>
+        <li class="table-view-cell media">
+          <a class="navigate-right" href="caweb/stats.html" data-transition="slide-in">
+            <span class="media-object icon icon-star pull-left"></span>
+            <div class="media-body">
+              My Statistics
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <h5 class="content-padded">OPTIONS</h5>
+
+      <ul class="table-view">
+        <li class="table-view-cell media">
+          <a class="navigate-right" href="caweb/login.html" data-transition="slide-in">
+            <span class="media-object icon icon-person pull-left"></span>
+            <div class="media-body">
+              Login Credentials
+            </div>
+          </a>
+        </li>
+        <li class="table-view-cell media">
+          <a class="navigate-right" href="caweb/backup.html" data-transition="slide-in">
+            <span class="media-object icon icon-download pull-left"></span>
+            <div class="media-body">
+              Backup My Data
+            </div>
+          </a>
+        </li>
+        <li class="table-view-cell media">
+          <a class="navigate-right" href="#about" data-transition="slide-in">
+            <span class="media-object icon icon-info pull-left"></span>
+            <div class="media-body">
+              About
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div><!-- /.content -->
+
+    <!-- modal -->
+    
+ <!--   <div id="about" class="modal">
+
+      <header class="bar bar-nav">
+      <a class="icon icon-close pull-right" href="#about"></a>
+        <h1 class="title">About CloudArchery</h1>
+      </header>
+
+      <div class="content">
+        <div class="card">
+          <h3>CloudArchery Mobile Web</h3>
+          <h4>Version 0.0.1</h4>
+          <p>Online version of the CloudArchery Android application</p>
+          <p>Create rounds, join rounds, save your archery scores, compete against other club members.</p>
+          <p>Visit http://cloudarchery.com for more information</p>
+        </div>
+
+      </div>
+    </div><!-- /.modal -->
+
+        <!-- Compose modal -->
+    <div id="about" class="modal">
+      <header class="bar bar-nav">
+        <a class="btn btn-link pull-right" href="#composeModal">
+          <strong>Send</strong>
+        </a>
+        <a class="btn btn-link pull-left" href="#composeModal">
+          Cancel
+        </a>
+        <h1 class="title">Newer message</h1>
+      </header>
+
+      <div class="content">
+        <form class="input-group">
+          <input type="text" placeholder="To:">
+          <input type="email" placeholder="From:">
+          <input type="text" placeholder="Subject:">
+          <textarea rows="20"></textarea>
+        </form>
+      </div>
+    </div><!-- /.modal -->
+
+
+
+  </body>
+</html>

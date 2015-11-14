@@ -1,0 +1,49 @@
+.updated-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 10px 0;
+  font-size: 11px;
+  text-align: center;
+}
+
+.table-view-cell .icon {
+  color: #007aff;
+}
+
+.div-table{
+  display:table; 
+  width:100%;
+  font-size: 14px;               
+  background-color:#eee;         
+  border:1px solid  #666666;         
+  border-spacing:5px;/*cellspacing:poor IE support for  this*/
+}
+.div-table-row{
+  display:table-row;
+  width:100%;
+  clear:both;
+}
+.div-table-col{
+  float:left;/*fix for  buggy browsers*/
+  display:table-column;                  
+  background-color:#fff; 
+  padding: 2px; 
+}
+
+.div-table-header-row {
+background-color:#ccc;	
+}
+.col1 {
+	width: 55%;
+}
+
+.col2 {
+	width: 15%;
+}
+.col3 {
+	width: 15%;
+}
+.col4 {
+	width: 15%;
+}
