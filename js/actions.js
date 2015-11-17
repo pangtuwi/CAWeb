@@ -1,11 +1,57 @@
-function getUrlVars() {
-	var vars = {};
-	//according to Dyl you could use window.location.search, but this works....
-	var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-		vars[key] = value;
-	});
-	return vars;
+function action_login(){
+	FirebaseEmail = $(".inputEmail").val();
+	console.log ("Email is: ")+FirebaseEmail;
+	FirebaseClubName = $(".inputClubName").val();
+	console.log ("Club is: ")+FirebaseClubName;
+	FirebasePassword = $(".inputPassword").val();
+	console.log ("Password is: ")+FirebasePassword;
+	lds_saveAuthInfo(FirebaseClubName, FirebaseEmail, FirebasePassword);
 }
+
+function action_editScores(thisEndID){
+	console.log ("running action_editscores");
+	currentEnd = thisEndID;
+	if (currentArrow == numArrowsPerEnd) currentArrow = 0;
+	currentEndTotal = 0;
+	totalScore = getRoundTotal(currentRoundData);
+
+	writeCurrentEnd();
+
+	$(".btn-del").off();
+	$(".btn-del").on("click", function() {
+		deleteScore();
+	});
+
+	$(".btn-clr").off();
+	$(".btn-clr").on("click", function() {
+		clearScore();
+	});
+	$("[data-score").off();
+	$("[data-score]").on("click", function() {
+		score ($(this).attr('data-score'));
+	});
+
+	$(".btn-save").off();
+	$(".btn-save").on("click", function() {
+		cds_saveEnd(currentEnd);
+		$("#"+roundID).trigger("click");
+	});
+}
+
+function action_joinRound(thisRoundID, thisNumEnds, thisNumApE){
+
+	$(".btn-canceljoin").on("click", function() {
+		controller_joinRoundList();
+	});
+
+	$(".btn-join").on("click", function() {
+		cds_joinRound(thisRoundID, thisNumEnds, thisNumApE);
+		controller_mainpage();
+	});
+
+	cds_loadJoinRoundInfo (thisRoundID);
+}
+
 
 function arrowClassColor (currentArrowValue) {
 	var currentArrowClass = "";
@@ -69,9 +115,9 @@ function score (arrowVal) {
 		totalArrows +=1;
 		oldArrowVal = 0;
 	};
-	console.log ("oldArrowVal = "+ oldArrowVal);
+	//console.log ("oldArrowVal = "+ oldArrowVal);
 	currentRoundData[currentEnd][currentArrow] = arrowVal;
-	console.log ("currentRoundData = "+ currentRoundData);
+	//console.log ("currentRoundData = "+ currentRoundData);
 
 	//Recalculate End
 	currentEndTotal = 0;
@@ -90,7 +136,7 @@ function score (arrowVal) {
 		currentArrow = 0;
 		cds_saveEnd(currentEnd);
 		currentEnd = parseInt(currentEnd) + 1;
-		PUSH ({url: backURL, transition: 'slide-in'});
+		$("#"+roundID).trigger("click");
 	}
 
 	//Check Current End
@@ -153,56 +199,9 @@ function getRoundTotal (thisRound) {
 	total = 0;
 	$.each(thisRound,function() {
 		$.each(this,function() {
-    		total += parseInt(this);
+			if (parseInt(this) != -1) total += parseInt(this);
 		});
 	});
 	console.log (" total calculated as "+ total);
 	return total;
 }
-
-
-//console.log ("running editscores.js");
-thisRoundID = getUrlVars()["id"];
-currentEnd = getUrlVars()["currentEnd"];
-if (currentArrow == numArrowsPerEnd) currentArrow = 0;
-currentEndTotal = 0;
-totalScore = getRoundTotal(currentRoundData);
-
-//console.log ("Current End Data  ="+currentRoundData[currentEnd]);
-
-writeCurrentEnd();
-
-//console.log ("End Selected = "+currentEnd);
-
-$(".btn-del").on("touchend", function() {
-	deleteScore();
-});
-
-$(".btn-clr").on("touchend", function() {
-	clearScore();
-});
-
-$("[data-score]").on("touchend", function() {
-	//example from Dylan
-	//console.log(this, $(this).attr('data-score'));
-	score ($(this).attr('data-score'));
-});
-
-//Set up buttons for navigation
-
-backURL = 'scores.html?id='+thisRoundID;
-
-$(".btn-back").html ('<a class="icon icon-left-nav pull-left" href="'+backURL+'" data-transition="slide-out"></a>');
-
-$(".btn-cancel").on("touchend", function() {
-	PUSH ({url: backURL, transition: 'slide-in'});
-});
-
-$(".btn-save").on("touchend", function() {
-	cds_saveEnd(currentEnd);
-	PUSH ({url: backURL, transition: 'slide-in'});
-});
-
-
-
-

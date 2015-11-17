@@ -82,16 +82,21 @@ function cds_getAuthParams (){
   console.log ("...auth params found : "+ authParamObj);
   if (authParamObj == null) {
     console.log ("... no auth params saved, get new ones.");
-    PUSH ({url: 'caweb/login.html', transition: 'slide-in'});
+    //PUSH ({url: 'caweb/login.html', transition: 'slide-in'});
+    controller_login();
   } else {
     FirebaseClubName = authParamObj["clubname"];
-    console.log ("Authparam[clubname]="+authParamObj["clubname"]);
+    //console.log ("Authparam[clubname]="+authParamObj["clubname"]);
     FirebaseEmail = authParamObj["email"];
     FirebasePassword = authParamObj["password"];
 
 
     //cds_checkAuthentication();
-    if (!FirebaseAuthenticated) cds_Authenticate();
+    if (FirebaseAuthenticated) {
+      $('#databaseConnection').html('Connected & Authenticated');
+    } else {
+      cds_Authenticate();
+    }
   }
 }//cds_getAuthParams
 
@@ -118,6 +123,7 @@ function cds_checkAuthentication () {
 
 function cds_checkDatabaseConnection () {
   console.log ("Checking databse connection");
+  $('#databaseConnection').html('checking for connection');
   FirebaseConnectedRef.on("value", function(snap) {
     console.log ("...got a snapshot from connectedRef : connected = " + snap.val());
     if (snap.val() === true) {
@@ -161,7 +167,8 @@ function cds_getUsersList () {
 };  //getUsersList
 
 function cds_getRoundsList () {   
-  console.log("loading Rounds List");             
+  //console.log("loading Rounds List");  
+  $('#roundsList').html("");
   roundsRef.orderByChild('createdAt').on('child_added', function(snapshot) {
     var thisRound = snapshot.val(); 
     $('#roundsList').prepend ('<li class="table-view-cell">'+
@@ -190,57 +197,58 @@ function cds_getRoundTypeList () {
         } ]
       },*/
 
-  console.log("loading RoundType List");             
+  console.log("loading RoundType List");    
+  $('#roundTypeUL').html("");         
   FirebaseRoundTypesRef.on('child_added', function(snapshot) {
     var thisRoundType = snapshot.val(); 
     if (thisRoundType.indoor) {isIndoor = "true"; } else {isIndoor = "false"};
-    $('#roundTypeList').append ('<li class="table-view-cell">'+
-                    '<a data-roundtype="'+thisRoundType.id+'" class="navigate-right" href="createround.html">'+
+    $('#roundTypeUL').append ('<li class="table-view-cell">'+
+                    '<a id="'+thisRoundType.id+'"  href="#">'+
                     thisRoundType.name+
                     '<p>'+thisRoundType.description+'</p>' +
                     '</a></li>');  
+    controller_addRoundTypeController (thisRound.id);
   });
 };  //getRoundTypeList
 
 function cds_getMyRoundsList () {   
   console.log("loading MY Rounds List");
-
+  myRoundsRef.off('child_added');
+  $('#myRoundsList').html ("");
   myRoundsRef.orderByChild('createdAt').on('child_added', function(snapshot) {
     var thisRoundListItem = snapshot.key();
     //console.log ("found round for user with ID = "+ thisRoundListItem);
+    
     thisRoundRef = roundsRef.child(thisRoundListItem);
     
     thisRoundRef.once('value', function(snapshot2) {
       var thisRound = snapshot2.val();
       $('#myRoundsList').prepend ('<li class="table-view-cell">'+
-                    '<a id="'+thisRound.id+'" class="roundListing" class="navigate-right" href="scores.html?id='+thisRound.id+'">'+
+                    '<a id="'+thisRound.id+'" class="roundListing" class="navigate-right" href="#">'+
                     thisRound.roundType.name+
                     '<p>'+thisRound.creator.name+"  |   "+formattedDateTime (thisRound.createdAt)+'</p>' +
                     '</a></li>');
+      controller_addRoundController (thisRound.id);
+
     });
   });
 };  //cds_getMyRoundsList
 
 function cds_getJoinableRoundsList () {   
   console.log("loading JOINABLE Rounds List");
-
+$('#joinableRoundsList').html ("");
   roundsRef.orderByChild('createdAt').on('child_added', function(snapshot) {
     var thisRound = snapshot.val();
 
     if (thisRound.scores.users[userID] === undefined) {
       console.log (" Found not joined round " + thisRound.id);
       $('#joinableRoundsList').prepend ('<li class="table-view-cell">'+
-                    '<a id="'+thisRound.id+'" class="navigate-right" href="joinround.html?id='+thisRound.id+
-                    '&numE='+thisRound.numEnds+
-                    '&numApE='+thisRound.numArrowsPerEnd+'">'+
+                    '<a id="'+thisRound.id+'" class="navigate-right" href="#">'+
                     thisRound.roundType.name+
                     '<p>'+thisRound.creator.name+"  |   "+formattedDateTime (thisRound.createdAt)+'</p>' +
                     '</a></li>');
+      controller_addJoinRoundController (thisRound.id, thisRound.numEnds, thisRound.numArrowsPerEnd);
     }
-
-    /*
-*/
- 
   });
 };  //cds_getJoinableRoundsList
 
@@ -270,6 +278,7 @@ function cds_loadRoundInfo (thisRoundID) {
       $('#roundDetails1').html("Created "+ roundDate);
       roundCreator = thisRoundInfo.creator.name;
       $('#roundDetails2').html("by "+ roundCreator);
+      $('#scoreTable').html ("");
 
       //console.log ("loading data from "+"rounds/"+roundID+"/scores/users/"+FirebaseUserID+"/data/");
       //Data Load
@@ -296,9 +305,10 @@ function cds_loadRoundInfo (thisRoundID) {
             if (totalArrows > 0) {average = totalScore/totalArrows} else {average = 0;}
             $('#average').html("Avg:" + Math.round(average * 100) / 100);
             $('#scoreTable').append ('<li class="table-view-cell">'+
-                '<a class="navigate-right" href="editscores.html?id='+thisRoundInfo.id+'&currentEnd='+i+'" data-transition="slide-in">'+
+                '<a id="end'+i+'"" class="navigate-right" href="#" data-transition="slide-in">'+
                   thisScoreString + ' = ' + cds_endSum(thisData[i])+
-                '</a></li>');  
+                '</a></li>'); 
+            controller_addEndController("end"+i, roundID, i);     
           };
       });
 

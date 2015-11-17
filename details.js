@@ -1,1 +1,0 @@
-cds_getClubDetails();

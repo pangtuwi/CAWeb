@@ -8,11 +8,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
     <link rel="stylesheet" href="ratchet/dist/css/ratchet.min.css">
-    <link rel="stylesheet" href="ratchet/dist/css/ratchet-theme-ios.min.mod.css">
+    <!--<link rel="stylesheet" href="ratchet/dist/css/ratchet-theme-ios.min.mod.css">-->
 
     <link rel="stylesheet" href="css/rat_app.css">
 
-    <script src="ratchet/dist/js/ratchet.min.js"></script>
+    <!--<script src="ratchet/dist/js/ratchet.min.js"></script>-->
     <script src="jquery/jquery-2.1.4.min.js"></script>
     <!--<script src="https://cdn.firebase.com/js/client/2.3.0/firebase.js"></script>-->
     <script src="firebase/firebase2.3.0.js"></script>
@@ -20,33 +20,15 @@
     <script src="js/lds.js"></script>
     <script src="js/cds.js"></script>
 
+    <script src="js/controller.js"></script>
+    <script src="js/actions.js"></script>
+
     <script>
-
-      cds_checkDatabaseConnection();
-
-      var loadUserData = function(){
-          cds_getUsersList();
-      }; //loadUserData
-
-
-      var addPageJS = function(){
-        var elm = document.getElementsByClassName("content")[0];
-        var script = elm.id;
-        console.log ("looking for script : " + elm.id+".js");
-        if(script) {
-          $.getScript(elm.id+".js", function (data,  textStatus, jqxhr ) {
-            //console.log( data ); // Data returned
-            console.log(" : getScript returned = "+ textStatus ); // Success
-            //console.log( jqxhr.status ); // 200
-            //console.log( "Load was performed." );
-          });
-        };
-      };  //addPageJS
-
       
-
-      window.addEventListener('push', loadUserData);
-      window.addEventListener('push', addPageJS);
+     function initialise() {
+            controller_initialise();
+        }
+        window.onload = initialise;
     </script>
 
   </head>
@@ -54,7 +36,8 @@
   <body>
     <header class="bar bar-nav">
       <!--<a class="icon icon-refresh pull-right"></a>-->
-      <h1 class="title">CloudArchery</h1>
+      <a class="icon icon-left-nav pull-left" href="#" data-transition="slide-out"></a>
+      <h1 id="pageTitle" class="title">CloudArchery</h1>
     </header>
 
     <div class="bar bar-footer">
@@ -62,25 +45,11 @@
     </div>
 
     <div id="caweb" class="content">
+      <img src="archers.jpg" alt="myimage" style="width:100%;max-height: 250px">
    
-   <!--   <div class="slider">
-        <div class="slide-group">
-          <div class="slide">
-            <img src="archers.jpg" alt="Argo" width="640" height="200">
-          </div>
-          <div class="slide">
-             <img src="archers.jpg" alt="Skyfall" width="640" height="200">
-          </div>  
-        </div>
-      </div> -->
-
-   
-        <img src="archers.jpg" alt=" " style="width: 100%;max-height: 100%" />
-   
-
       <ul class="table-view">
         <li class="table-view-cell media">
-          <a class="navigate-right" href="caweb/myrounds.html" data-transition="slide-in">
+          <a id="nav-myRounds" class="navigate-right" href="#" data-transition="slide-in">
             <span class="media-object icon icon-pages pull-left"></span>
             <div class="media-body">
               My Rounds
@@ -88,7 +57,7 @@
           </a>
         </li>
         <li class="table-view-cell media">
-          <a class="navigate-right" href="caweb/createround.html" data-transition="slide-in">
+          <a id="nav-createRound" class="navigate-right" href="#" data-transition="slide-in">
             <span class="media-object icon icon-plus pull-left"></span>
             <div class="media-body">
               Create Round
@@ -96,7 +65,7 @@
           </a>
         </li>
         <li class="table-view-cell media">
-          <a class="navigate-right" href="caweb/joinlist.html" data-transition="slide-in">
+          <a id="nav-joinRoundList" class="navigate-right" href="#" data-transition="slide-in">
             <span class="media-object icon icon-check pull-left"></span>
             <div class="media-body">
               Join Round
@@ -104,7 +73,7 @@
           </a>
         </li>
         <li class="table-view-cell media">
-          <a class="navigate-right" href="caweb/stats.html" data-transition="slide-in">
+          <a id="nav-statistics" class="navigate-right" href="#" data-transition="slide-in">
             <span class="media-object icon icon-star pull-left"></span>
             <div class="media-body">
               My Statistics
@@ -112,7 +81,7 @@
           </a>
         </li>
         <li class="table-view-cell media">
-          <a class="navigate-right" href="caweb/options.html" data-transition="slide-in">
+          <a id="nav-settings" class="navigate-right" href="#" data-transition="slide-in">
             <span class="media-object icon icon-gear pull-left"></span>
             <div class="media-body">
               Settings
@@ -120,27 +89,200 @@
           </a>
         </li>
 
-    </div><!-- /.content -->
+    </div><!-- /.caweb - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        
-  <div id="about" class="modal">
+    <div id="login2" class="content">
+      <div class="card">
+        <form class="js-form-login">
+          <input class="inputClubName" type="text" autocomplete="false" placeholder="Club Name">
+          <input class="inputEmail" type="text" autocomplete="false" placeholder="E-Mail">
+          <input class="inputPassword" type="password" autocomplete="new-password" placeholder="Password">
+         <button id="btn-login" type="submit" class="btn js-btn-login btn-positive btn-block">Login</button>
+        </form>
+      </div>
+    </div><!-- /. login2 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-      <header class="bar bar-nav">
-      <a class="icon icon-close pull-right" href="#about"></a>
-        <h1 class="title">About CloudArchery</h1>
-      </header>
+    <div id="myRounds" class="content">     
+      <ul id="myRoundsList" class="table-view">
+      </ul>
+    </div><!-- /. myRounds - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-      <div class="content">
-        <div class="card">
-          <h3>CloudArchery Mobile Web</h3>
-          <h4>Version 0.0.1</h4>
-          <p>Online version of the CloudArchery Android application</p>
-          <p>Create rounds, join rounds, save your archery scores, compete against other club members.</p>
-          <p>Visit http://cloudarchery.com for more information</p>
+    <div id="joinList" class="content" >      
+      <ul id="joinableRoundsList" class="table-view">
+      </ul>
+   </div><!-- - /.joinList - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <div id="joinRound" class="content" >
+        <div class="card confirmJoin">
+          <p>Do you want to join the following round?</p>
         </div>
 
+        <div class="card">
+          <h2 id="join_roundType">loading...</h2>
+          <p id="join_roundDate">no round data loaded</p>
+          <p id="join_roundCreator">loading round data</p>
+        </div>
+
+        <div class="card">
+          <button class="btn btn-join btn-positive btn-block">Join</button>
+          <button class="btn btn-canceljoin btn-negative btn-block">Cancel</button>          
+        </div>
+    </div> <!-- - /.joinRound - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <div id="createRound" class="content">
+      <div class="card">
+        <ul class="table-view">
+          <li class="table-view-cell media">
+            <a id="nav-roundTypeList" class="navigate-right">
+              <div id="roundTypeName" class="media-body">
+                Select Round Type
+              </div>
+            </a>
+          </li>
+        </ul>
+        <form>
+          <textarea rows="5" placeholder="Description / Comment"></textarea>
+          <button id="btn-createRound" class="btn btn-positive btn-block" >Create</button>
+        </form>
       </div>
-    </div><!-- /.modal -->
+    </div><!-- /.createRound - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <div id="roundTypeList" class="content">     
+      <ul id="roundTypeUL" class="table-view">
+      </ul>
+    </div><!-- /.roundTypeList - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    
+    <div id="settings" class="content">
+      <ul class="table-view">
+        <li class="table-view-cell media">
+          <a id="nav-login" class="navigate-right" href="#" data-transition="slide-in">
+            <span class="media-object icon icon-person pull-left"></span>
+            <div class="media-body">
+              Login Credentials
+            </div>
+          </a>
+        </li>
+        <li class="table-view-cell media">
+          <a id="nav-backup" class="navigate-right" href="#" data-transition="slide-in">
+            <span class="media-object icon icon-download pull-left"></span>
+            <div class="media-body">
+              Backup My Data
+            </div>
+          </a>
+        </li>
+        <li class="table-view-cell media">
+          <a id="nav-about" class="navigate-right" href="#" data-transition="slide-in">
+            <span class="media-object icon icon-info pull-left"></span>
+            <div class="media-body">
+              About
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div><!-- /.settings  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <div class="content" id="statistics">
+      <div class="card">
+        <H4>statistics function not yet available</H4>
+      </div>
+    </div><!-- /.statistics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <div class="content" id="backup">
+      <div class="card">
+        <H4>Backup function not yet available</H4>
+      </div>
+    </div><!-- /.backup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+
+    <div id="scores" class="content">
+      <div class="card">
+        <h4 id="roundType">Loading Round Type</h4>
+        <p> 
+          <span id="roundDetails1">Loading Round Details...</span><br>
+          <span id="roundDetails2">Loading Round Details...</span>
+        </p>
+      </div>
+      
+      <div class="card">
+        <ul id="scoreTable" class="table-view">
+        </ul>
+      </div>
+      
+      <div class="card">
+        <h4><span id="numArrows"> Arrows Shot = XX</span> |
+        <span id="average">Average = XX</span> |
+        <span id="totalScore">Total = XX</span></h4>
+      
+      </div><!-- /.card -->
+
+      <div class="card">
+            <div class="div-table leaderboard">
+             <div class="div-table-row ">
+                <div class="div-table-col div-table-header-row col1" >Leaderboard</div>
+                <div  class="div-table-col div-table-header-row col2" align="center">Arws</div>
+                <div  class="div-table-col div-table-header-row col3" align="center">Tot</div>
+                <div  class="div-table-col div-table-header-row col4" align="center">Avg</div> 
+             </div>
+               <div class="div-table-row">
+                <div class="div-table-col col1">Paul Williamns</div>
+                <div class="div-table-col col2" align="center">30</div>
+                <div class="div-table-col col3" align="center">212</div>
+                <div class="div-table-col col4" align="center">7.99</div>
+                </div>
+            </div>
+      </div>
+    </div><!-- /.scores  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <div class="content" id="editScores">
+        <div id="endScores" class="card">
+        </div>
+        <div class="card">
+          <p >
+            <button class="btn btn-gold" data-score="10" > 10 </button>
+            <!-- data-score is an html data attribute.  see https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes-->
+
+            <button class="btn btn-gold" data-score="9"> &nbsp;9&nbsp; </button>  
+          </p>
+          <p>        
+            <button class="btn btn-red" data-score="8"> &nbsp;8&nbsp; </button>
+            <button class="btn btn-red" data-score="7"> &nbsp;7&nbsp; </button> 
+          </p>
+          <p>        
+            <button class="btn btn-blue" data-score="6"> &nbsp;6&nbsp; </button>
+            <button class="btn btn-blue" data-score="5"> &nbsp;5&nbsp; </button> 
+          </p>
+          <p>        
+            <button class="btn btn-black" data-score="4"> &nbsp;4&nbsp; </button>
+            <button class="btn btn-black" data-score="3"> &nbsp;3&nbsp; </button> 
+          </p>
+          <p>        
+            <button class="btn btn-white" data-score="2"> &nbsp;2&nbsp; </button>
+            <button class="btn btn-white" data-score="1"> &nbsp;1&nbsp; </button>        
+            <button class="btn btn-white" data-score="0"> miss </button>
+          </p>
+        </div>
+
+        <div class="card">
+          <button class="btn btn-action btn-del" >&lsaquo; del</button>
+          <button class="btn btn-action btn-clr">&laquo; clr</button>
+        </div>
+
+        <div class="card">
+          <button class="btn btn-action btn-save">Save</button>
+          <button class="btn btn-action btn-cancel-edit">Cancel</button>
+        </div>
+    </div> <!-- /.backup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+
+    <div id="about" class="content">
+      <div class="card">
+        <h3>CloudArchery Mobile Web</h3>
+        <h4>Version 0.0.2</h4>
+        <p>Online version of the CloudArchery Android application</p>
+        <p>Create rounds, join rounds, save your archery scores, compete against other club members.</p>
+        <p>Visit http://cloudarchery.com for more information</p>
+      </div>
+    </div><!-- /about - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
 
   </body>
