@@ -144,6 +144,7 @@ function controller_addEndController(thisNavID, thisRoundID, thisEndID){
 		$(".btn-cancel-edit").on("click", function() {
 			$("#"+thisRoundID).trigger("click");
 		});
+		console.log ("end controller added");
 		action_editScores(thisEndID);
     });
 }

@@ -10,7 +10,7 @@ function action_login(){
 
 function action_editScores(thisEndID){
 	console.log ("running action_editscores");
-	alert ("runin");
+
 	currentEnd = thisEndID;
 	if (currentArrow == numArrowsPerEnd) currentArrow = 0;
 	currentEndTotal = 0;
