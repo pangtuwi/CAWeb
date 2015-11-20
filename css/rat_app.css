@@ -1,6 +1,8 @@
-img{
-  width:100%;
-  max-height:200px;
+.title-image {
+  margin: 0;
+  background: url('../archers.jpg') 100% 0;
+  background-size: cover;
+  height: 250px;
 }
 
 .updated-text {
@@ -17,11 +19,11 @@ img{
 }
 
 .div-table{
-  display:table; 
+  display:table;
   width:100%;
-  font-size: 14px;               
-  background-color:#eee;         
-  border:1px solid  #666666;         
+  font-size: 14px;
+  background-color:#eee;
+  border:1px solid  #666666;
   border-spacing:5px;/*cellspacing:poor IE support for  this*/
 }
 .div-table-row{
@@ -31,13 +33,13 @@ img{
 }
 .div-table-col{
   float:left;/*fix for  buggy browsers*/
-  display:table-column;                  
-  background-color:#fff; 
-  padding: 2px; 
+  display:table-column;
+  background-color:#fff;
+  padding: 2px;
 }
 
 .div-table-header-row {
-background-color:#ccc;	
+background-color:#ccc;
 }
 .col1 {
 	width: 55%;

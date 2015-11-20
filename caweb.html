@@ -24,7 +24,7 @@
     <script src="js/actions.js"></script>
 
     <script>
-      
+
      function initialise() {
             controller_initialise();
         }
@@ -45,8 +45,8 @@
     </div>
 
     <div id="caweb" class="content">
-      <img src="archers.jpg" alt="myimage" style="width:100%;max-height: 250px">
-   
+      <figure class="title-image"></figure>
+
       <ul class="table-view">
         <li class="table-view-cell media">
           <a id="nav-myRounds" class="navigate-right" href="#" data-transition="slide-in">
@@ -102,12 +102,12 @@
       </div>
     </div><!-- /. login2 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-    <div id="myRounds" class="content">     
+    <div id="myRounds" class="content">
       <ul id="myRoundsList" class="table-view">
       </ul>
     </div><!-- /. myRounds - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-    <div id="joinList" class="content" >      
+    <div id="joinList" class="content" >
       <ul id="joinableRoundsList" class="table-view">
       </ul>
    </div><!-- - /.joinList - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -125,7 +125,7 @@
 
         <div class="card">
           <button class="btn btn-join btn-positive btn-block">Join</button>
-          <button class="btn btn-canceljoin btn-negative btn-block">Cancel</button>          
+          <button class="btn btn-canceljoin btn-negative btn-block">Cancel</button>
         </div>
     </div> <!-- - /.joinRound - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
@@ -147,11 +147,11 @@
       </div>
     </div><!-- /.createRound - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-    <div id="roundTypeList" class="content">     
+    <div id="roundTypeList" class="content">
       <ul id="roundTypeUL" class="table-view">
       </ul>
     </div><!-- /.roundTypeList - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-    
+
     <div id="settings" class="content">
       <ul class="table-view">
         <li class="table-view-cell media">
@@ -197,22 +197,22 @@
     <div id="scores" class="content">
       <div class="card">
         <h4 id="roundType">Loading Round Type</h4>
-        <p> 
+        <p>
           <span id="roundDetails1">Loading Round Details...</span><br>
           <span id="roundDetails2">Loading Round Details...</span>
         </p>
       </div>
-      
+
       <div class="card">
         <ul id="scoreTable" class="table-view">
         </ul>
       </div>
-      
+
       <div class="card">
         <h4><span id="numArrows"> Arrows Shot = XX</span> |
         <span id="average">Average = XX</span> |
         <span id="totalScore">Total = XX</span></h4>
-      
+
       </div><!-- /.card -->
 
       <div class="card">
@@ -221,7 +221,7 @@
                 <div class="div-table-col div-table-header-row col1" >Leaderboard</div>
                 <div  class="div-table-col div-table-header-row col2" align="center">Arws</div>
                 <div  class="div-table-col div-table-header-row col3" align="center">Tot</div>
-                <div  class="div-table-col div-table-header-row col4" align="center">Avg</div> 
+                <div  class="div-table-col div-table-header-row col4" align="center">Avg</div>
              </div>
                <div class="div-table-row">
                 <div class="div-table-col col1">Paul Williamns</div>
@@ -241,23 +241,23 @@
             <button class="btn btn-gold" data-score="10" > 10 </button>
             <!-- data-score is an html data attribute.  see https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes-->
 
-            <button class="btn btn-gold" data-score="9"> &nbsp;9&nbsp; </button>  
+            <button class="btn btn-gold" data-score="9"> &nbsp;9&nbsp; </button>
           </p>
-          <p>        
+          <p>
             <button class="btn btn-red" data-score="8"> &nbsp;8&nbsp; </button>
-            <button class="btn btn-red" data-score="7"> &nbsp;7&nbsp; </button> 
+            <button class="btn btn-red" data-score="7"> &nbsp;7&nbsp; </button>
           </p>
-          <p>        
+          <p>
             <button class="btn btn-blue" data-score="6"> &nbsp;6&nbsp; </button>
-            <button class="btn btn-blue" data-score="5"> &nbsp;5&nbsp; </button> 
+            <button class="btn btn-blue" data-score="5"> &nbsp;5&nbsp; </button>
           </p>
-          <p>        
+          <p>
             <button class="btn btn-black" data-score="4"> &nbsp;4&nbsp; </button>
-            <button class="btn btn-black" data-score="3"> &nbsp;3&nbsp; </button> 
+            <button class="btn btn-black" data-score="3"> &nbsp;3&nbsp; </button>
           </p>
-          <p>        
+          <p>
             <button class="btn btn-white" data-score="2"> &nbsp;2&nbsp; </button>
-            <button class="btn btn-white" data-score="1"> &nbsp;1&nbsp; </button>        
+            <button class="btn btn-white" data-score="1"> &nbsp;1&nbsp; </button>
             <button class="btn btn-white" data-score="0"> miss </button>
           </p>
         </div>
