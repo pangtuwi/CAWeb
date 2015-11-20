@@ -10,6 +10,7 @@ function action_login(){
 
 function action_editScores(thisEndID){
 	console.log ("running action_editscores");
+	alert ("runin");
 	currentEnd = thisEndID;
 	if (currentArrow == numArrowsPerEnd) currentArrow = 0;
 	currentEndTotal = 0;
@@ -26,7 +27,7 @@ function action_editScores(thisEndID){
 	$(".btn-clr").on("click", function() {
 		clearScore();
 	});
-	$("[data-score").off();
+	$("[data-score]").off();
 	$("[data-score]").on("click", function() {
 		score ($(this).attr('data-score'));
 	});
