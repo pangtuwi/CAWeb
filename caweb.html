@@ -234,49 +234,36 @@
     </div><!-- /.scores  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
     <div class="content" id="editScores">
-        <div id="endScores" class="card">
-        </div>
-        <div class="card">
-          <p >
-            <button class="btn btn-gold" 
-
-
-
-
-
-
-            ="10" > 10 </button>
-            <!-- data-score is an html data attribute.  see https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes-->
-
+        <div id="endScores" class="card"></div>
+        <div class="card button-container">
+          <!-- data-score is an html data attribute.  see https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes-->
+          <span class="button-group">
+            <button class="btn btn-gold" data-score="10">10</button>
             <button class="btn btn-gold" data-score="9"> &nbsp;9&nbsp; </button>
-          </p>
-          <p>
+          </span>
+          <span class="button-group">
             <button class="btn btn-red" data-score="8"> &nbsp;8&nbsp; </button>
             <button class="btn btn-red" data-score="7"> &nbsp;7&nbsp; </button>
-          </p>
-          <p>
+          </span>
+          <span class="button-group">
             <button class="btn btn-blue" data-score="6"> &nbsp;6&nbsp; </button>
             <button class="btn btn-blue" data-score="5"> &nbsp;5&nbsp; </button>
-          </p>
-          <p>
+          </span>
+          <span class="button-group">
             <button class="btn btn-black" data-score="4"> &nbsp;4&nbsp; </button>
             <button class="btn btn-black" data-score="3"> &nbsp;3&nbsp; </button>
-          </p>
-          <p>
+          </span>
+          <span class="button-group">
             <button class="btn btn-white" data-score="2"> &nbsp;2&nbsp; </button>
             <button class="btn btn-white" data-score="1"> &nbsp;1&nbsp; </button>
             <button class="btn btn-white" data-score="0"> miss </button>
-          </p>
+          </span>
         </div>
 
-        <div class="card">
-          <button class="btn btn-action btn-del" >&lsaquo; del</button>
-          <button class="btn btn-action btn-clr">&laquo; clr</button>
-        </div>
-
-        <div class="card">
-          <button class="btn btn-action btn-save">Save</button>
-          <button class="btn btn-action btn-cancel-edit">Cancel</button>
+        <div class="card button-container">
+          <button class="btn btn-action btn-del" >&lsaquo; DEL</button>
+          <button class="btn btn-action btn-clr">&laquo; CLR</button>
+          <button class="btn btn-action btn-save">SAVE</button>
         </div>
     </div> <!-- /.backup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
