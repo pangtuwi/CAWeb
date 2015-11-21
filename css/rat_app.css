@@ -55,59 +55,39 @@ background-color:#ccc;
 	width: 15%;
 }
 
+.btn {
+  font-size: 24px;
+  padding: 10px 24px;
+}
+
 .btn-gold {
   color: #FFFFFF;
   background-color: #FFD700;
   border: 1px solid #FFD700;
-  font-size: 24px;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .btn-red {
   color: #FFFFFF;
   background-color: #FF0000;
   border: 1px solid #FF0000;
-  font-size: 24px;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .btn-blue {
   color: #FFFFFF;
   background-color: #0000FF;
   border: 1px solid #0000FF;
-  font-size: 24px;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .btn-black {
   color: #FFFFFF;
   background-color: #000000;
   border: 1px solid #000000;
-  font-size: 24px;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .btn-white {
   color: #000000;
   background-color: #FFFFFF;
   border: 1px solid #000000;
-  font-size: 24px;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .btn-action {
@@ -115,8 +95,24 @@ background-color:#ccc;
   background-color: #888888;
   border: 1px solid #000000;
   font-size: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding: 8px 14px;
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.button-group {
+  display: flex;
+  margin: 5px 0;
+}
+
+.button-container button {
+  margin: 5px;
+}
+
+.button-group button {
+  margin: 0 5px;
 }
