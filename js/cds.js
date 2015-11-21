@@ -215,19 +215,17 @@ function cds_getMyRoundsList () {
   console.log("loading MY Rounds List");
   myRoundsRef.off('child_added');
   $('#myRoundsList').html ("");
-  myRoundsRef.orderByChild('createdAt').on('child_added', function(snapshot) {
+  myRoundsRef.orderByValue().on('child_added', function(snapshot) {
     var thisRoundListItem = snapshot.key();
-    //console.log ("found round for user with ID = "+ thisRoundListItem);
-    
+    $('#myRoundsList').prepend ('<li id="round-'+thisRoundListItem+'" class="table-view-cell"></li>');
     thisRoundRef = roundsRef.child(thisRoundListItem);
     
     thisRoundRef.once('value', function(snapshot2) {
       var thisRound = snapshot2.val();
-      $('#myRoundsList').prepend ('<li class="table-view-cell">'+
-                    '<a id="'+thisRound.id+'" class="roundListing" class="navigate-right" href="#">'+
+      $('#round-'+thisRound.id).html ('<a id="'+thisRound.id+'" class="roundListing" class="navigate-right" href="#">'+
                     thisRound.roundType.name+
                     '<p>'+thisRound.creator.name+"  |   "+formattedDateTime (thisRound.createdAt)+'</p>' +
-                    '</a></li>');
+                    '</a>');
       controller_addRoundController (thisRound.id);
 
     });
@@ -544,13 +542,6 @@ function cds_saveEnd (endNo){
 //- - - - - - - - - - - - - ALL ABOVE HERE IS NEEDED FOR CLoudArchery UserManager - - - - - - - - - - - - - - - - //
 //- - - - - - - - - - - - - - - BELOW HERE IS FROM PREVIOUS WEB IMPLIMENTATIONS - - - - - - - - - - - - - - - - - //
 
-function getRoundList () {                   // - - - - - - - - - - - - - - - - - - - - -//
-  var myRoundsRef = FirebaseRef.child('rounds');
-  myRoundsRef.orderByChild('date').on('child_added', function(snapshot) {
-    var myRound = snapshot.val();
-    rounds [myRound.id] = myRound.roundType + " : " + myRound.date + " ("+myRound.ends + "x"+ myRound.arrowsperend + ")";
-  });
-};  //getRoundList
 
 
 function getScoreArrayFirebase (user, round) { // - - - - - - - - - - - - - - - - - - - - -//
