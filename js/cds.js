@@ -1,4 +1,4 @@
-var CAWebVersion = "0.3";
+var CAWebVersion = "0.3.1";
 var FirebaseRef = new Firebase('https://cadev.firebaseio.com/');
 var FirebaseConnectedRef = FirebaseRef.child('.info/connected');
 var FirebaseRoundTypesRef = FirebaseRef.child('roundTypes/data/');
@@ -42,19 +42,21 @@ var endTotal = 0;
 function cds_authHandler(error, authData) {
   if (error) {
     FirebaseAuthenticated = false;
-    console.log("Login Failed!", error);
+    $(".onlyIfAuth").css('color', 'grey');
+    // console.log("Login Failed!", error);
     $('#databaseConnection').html('Connected, Authentication Failed');
     $("#databaseConnection").css("color","red");
   } else {
     FirebaseAuthenticated = true;
-    console.log("Authenticated successfully with payload:", authData);
+    $(".onlyIfAuth").css('color', 'black');
+    // console.log("Authenticated successfully with payload:", authData);
     $('#databaseConnection').html('Connected & Authenticated');
     $("#databaseConnection").css("color","green");
 
     usersRef.orderByChild('name').on('child_added', function(snapshot) {
       var myUser = snapshot.val();
       if (myUser.email == FirebaseEmail) {
-        console.log ("...found user match. FirebaseUserID = "+ myUser.id);
+        // console.log ("...found user match. FirebaseUserID = "+ myUser.id);
         FirebaseUserID = myUser.id;
         FirebaseName = myUser.name;
         //alert ("Welcome "+ FirebaseName);
@@ -67,10 +69,10 @@ function cds_authHandler(error, authData) {
 
 
 function cds_Authenticate () {
-  console.log ("Checking Authentication with Email: "+FirebaseEmail);
-      FirebaseClubRef = new Firebase ('https://'+FirebaseClubName+'.firebaseio.com');
-    usersRef = FirebaseClubRef.child('users');
-    roundsRef = FirebaseClubRef.child('rounds');
+  // console.log ("Checking Authentication with Email: "+FirebaseEmail);
+  FirebaseClubRef = new Firebase ('https://'+FirebaseClubName+'.firebaseio.com');
+  usersRef = FirebaseClubRef.child('users');
+  roundsRef = FirebaseClubRef.child('rounds');
   FirebaseClubRef.authWithPassword({
     email    : FirebaseEmail,
     password : FirebasePassword
@@ -80,22 +82,23 @@ function cds_Authenticate () {
 
 
 function cds_getAuthParams (){
-  console.log ("checking for existing auth parameters");
+  // console.log ("checking for existing auth parameters");
   var authParamObj = lds_loadAuthInfo();
-  console.log ("...auth params found : "+ authParamObj);
+  // console.log ("...auth params found : "+ authParamObj);
   if (authParamObj == null) {
-    console.log ("... no auth params saved, get new ones.");
+    // console.log ("... no auth params saved, get new ones.");
     //PUSH ({url: 'caweb/login.html', transition: 'slide-in'});
     controller_login();
   } else {
     FirebaseClubName = authParamObj["clubname"];
-    //console.log ("Authparam[clubname]="+authParamObj["clubname"]);
+    //// console.log ("Authparam[clubname]="+authParamObj["clubname"]);
     FirebaseEmail = authParamObj["email"];
     FirebasePassword = authParamObj["password"];
 
 
     //cds_checkAuthentication();
     if (FirebaseAuthenticated) {
+      $(".onlyIfAuth").css('color', 'black');
       $('#databaseConnection').html('Connected & Authenticated');
     } else {
       cds_Authenticate();
@@ -106,16 +109,18 @@ function cds_getAuthParams (){
 
 function cds_checkAuthentication () {
   if (undefined != FirebaseClubRef) {
-    console.log ("Checking authentication on " + FirebaseClubRef);
+    // console.log ("Checking authentication on " + FirebaseClubRef);
     var authData = FirebaseClubRef.getAuth();
     if (authData) {
       FirebaseAuthenticated = true;
-      console.log("User " + authData.uid + " is logged in with " + authData.provider);
+      $(".onlyIfAuth").css('color', 'black');
+      // console.log("User " + authData.uid + " is logged in with " + authData.provider);
       $('#databaseConnection').html('Connected & Authenticated');
       $("#databaseConnection").css("color","green");
     } else {
       FirebaseAuthenticated = false;
-      console.log("User is logged out");
+      $(".onlyIfAuth").css('color', 'grey');
+      // console.log("User is logged out");
       $('#databaseConnection').html('Connected but NOT Authenticated');
       $("#databaseConnection").css("color","red");
     }
@@ -125,18 +130,22 @@ function cds_checkAuthentication () {
 
 
 function cds_checkDatabaseConnection () {
-  console.log ("Checking databse connection");
+  // console.log ("Checking databse connection");
   $('#databaseConnection').html('checking for connection');
   FirebaseConnectedRef.on("value", function(snap) {
-    console.log ("...got a snapshot from connectedRef : connected = " + snap.val());
+    // console.log ("...got a snapshot from connectedRef : connected = " + snap.val());
     if (snap.val() === true) {
       //alert("connected");
       FirebaseConnected = true;
+      FirebaseAuthenticated = false;
+      $(".onlyIfAuth").css('color', 'grey');
       $('#databaseConnection').html('Database connected, authenticating...');
       $("#databaseConnection").css("color","green");
       cds_getAuthParams();
     } else {
       FirebaseConnected = false;
+      FirebaseAuthenticated = false;
+      $(".onlyIfAuth").css('color', 'grey');
       $('#databaseConnection').html('Database NOT connected');
       $("#databaseConnection").css("color","red");
       //alert("not connected");
@@ -170,7 +179,7 @@ function cds_getUsersList () {
 };  //getUsersList
 
 function cds_getRoundsList () {   
-  //console.log("loading Rounds List");  
+  //// console.log("loading Rounds List");  
   $('#roundsList').html("");
   roundsRef.orderByChild('createdAt').on('child_added', function(snapshot) {
     var thisRound = snapshot.val(); 
@@ -200,7 +209,7 @@ function cds_getRoundTypeList () {
         } ]
       },*/
 
-  console.log("loading RoundType List");    
+  // console.log("loading RoundType List");    
   $('#roundTypeUL').html("");         
   FirebaseRoundTypesRef.on('child_added', function(snapshot) {
     var thisRoundType = snapshot.val(); 
@@ -212,11 +221,11 @@ function cds_getRoundTypeList () {
                     '</a></li>');  
     controller_addRoundTypeController (thisRoundType.id, thisRoundType.name);
   });
-  console.log ("...done");
+  // console.log ("...done");
 };  //getRoundTypeList
 
 function cds_getMyRoundsList () {   
-  console.log("loading MY Rounds List");
+  // console.log("loading MY Rounds List");
   myRoundsRef.off('child_added');
   $('#myRoundsList').html ("");
   myRoundsRef.orderByValue().on('child_added', function(snapshot) {
@@ -237,13 +246,13 @@ function cds_getMyRoundsList () {
 };  //cds_getMyRoundsList
 
 function cds_getJoinableRoundsList () {   
-  console.log("loading JOINABLE Rounds List");
+  // console.log("loading JOINABLE Rounds List");
 $('#joinableRoundsList').html ("");
   roundsRef.orderByChild('createdAt').on('child_added', function(snapshot) {
     var thisRound = snapshot.val();
 
     if (thisRound.scores.users[userID] === undefined) {
-      console.log (" Found not joined round " + thisRound.id);
+      // console.log (" Found not joined round " + thisRound.id);
       $('#joinableRoundsList').prepend ('<li class="table-view-cell">'+
                     '<a id="'+thisRound.id+'" class="navigate-right" href="#">'+
                     thisRound.roundType.name+
@@ -267,11 +276,11 @@ function cds_endSum (arr) {
 
 function cds_loadRoundInfo (thisRoundID) {
   roundID = thisRoundID;
-  console.log ("loading round info for "+roundID);
+  // console.log ("loading round info for "+roundID);
   var thisRoundRef = FirebaseClubRef.child("rounds/"+roundID);
   thisRoundRef.once('value', function(snapshot) {
       var thisRoundInfo = snapshot.val();
-      console.log (thisRoundInfo);
+      // console.log (thisRoundInfo);
       numArrowsPerEnd = thisRoundInfo.numArrowsPerEnd;
       numEnds = thisRoundInfo.numEnds;
       roundType = thisRoundInfo.roundType.name;
@@ -282,13 +291,13 @@ function cds_loadRoundInfo (thisRoundID) {
       $('#roundDetails2').html("by "+ roundCreator);
       $('#scoreTable').html ("");
 
-      //console.log ("loading data from "+"rounds/"+roundID+"/scores/users/"+FirebaseUserID+"/data/");
+      //// console.log ("loading data from "+"rounds/"+roundID+"/scores/users/"+FirebaseUserID+"/data/");
       //Data Load
       var thisRoundScoresRef = FirebaseClubRef.child("rounds/"+roundID+"/scores/users/"+userID+"/data/");
       thisRoundScoresRef.once('value', function(snapshot) {
           currentRoundData = snapshot.val();
           var thisData = snapshot.val();
-          console.log  ("data retrieved ="+currentRoundData);
+          // console.log  ("data retrieved ="+currentRoundData);
           totalArrows = 0;
           totalScore = 0;
           for (var i = 0; i < numEnds; i++) {
@@ -333,9 +342,9 @@ function cds_startLeaderboard (){
   thisRoundLeaderboardRef.on('value', function(snapshot) {
     var userArr = [];
       leaderboard = snapshot.val();
-      //console.log (leaderboard);
+      //// console.log (leaderboard);
       for (var thisuser in leaderboard){
-        console.log ("leaderboard user found: " + leaderboard[thisuser].name);
+        // console.log ("leaderboard user found: " + leaderboard[thisuser].name);
         if (leaderboard[thisuser].status.totalArrows > 0) {
           thisaverage = leaderboard[thisuser].status.totalScore/leaderboard[thisuser].status.totalArrows;
         } else {
@@ -378,11 +387,11 @@ function cds_startLeaderboard (){
 
 function cds_loadJoinRoundInfo (thisRoundID) {
   roundID = thisRoundID;
-  console.log ("loading round info for "+roundID);
+  // console.log ("loading round info for "+roundID);
   var thisRoundRef = FirebaseClubRef.child("rounds/"+roundID);
   thisRoundRef.once('value', function(snapshot) {
       var thisRoundInfo = snapshot.val();
-      console.log (thisRoundInfo);
+      // console.log (thisRoundInfo);
       roundType = thisRoundInfo.roundType.name;
       $('#join_roundType').html(roundType);
       roundDate = formattedDateTime(thisRoundInfo.createdAt);
@@ -396,14 +405,14 @@ function cds_loadJoinRoundInfo (thisRoundID) {
 
 var cds_onWriteComplete = function(error) {
     if (error) {
-      console.log("Error saving data to firebase");
+      // console.log("Error saving data to firebase");
     } else {
-      console.log("Firebase save OK");
+      // console.log("Firebase save OK");
     }
   };
 
 function cds_saveUser (id, Surname, FirstName, Name, Email) {
-  //console.log ("in cds_saveUser "+ id + "  " + Surname + "  " + FirstName + "  " + Name + "  " + Email);
+  //// console.log ("in cds_saveUser "+ id + "  " + Surname + "  " + FirstName + "  " + Name + "  " + Email);
   var usersRef = FirebaseClubRef.child("users");
   var userData = '{'+
                   '"id" : "'+id+'", '+
@@ -413,7 +422,7 @@ function cds_saveUser (id, Surname, FirstName, Name, Email) {
                   '"email" : "'+Email+'"'+
                   '}';
   userObj = JSON.parse(userData);
-  console.log (userObj);
+  // console.log (userObj);
   usersRef.child(id).update(userObj, cds_onWriteComplete);
 
 };//cds_saveUser
@@ -424,7 +433,7 @@ function cds_createUser (Email) {
    var passwordInt = Math.floor(Math.random()*9);
    password += passwordInt;
   };
-  console.log ("Generated new Password : " + password);
+  // console.log ("Generated new Password : " + password);
   FirebaseClubRef.createUser(Email, password);
   //create username and password....
 }; //cds_createUser
@@ -440,9 +449,9 @@ function cds_createRound (){
       if (error) {
         errortext = "Error saving data to Firebase"; 
         alert (errortext);
-        console.log(errortext);
+        // console.log(errortext);
       } else {
-        console.log('Data saved to Firebase successfully');
+        // console.log('Data saved to Firebase successfully');
       }
     };
 
@@ -450,7 +459,7 @@ function cds_createRound (){
     var thisFirebaseRoundTypesRef = FirebaseRoundTypesRef.child(newRoundTypeID);
     thisFirebaseRoundTypesRef.once('value', function(snapshot) {
       var thisRoundTypeInfo = snapshot.val();
-      console.log ("creating round from type : "+thisRoundTypeInfo);
+      // console.log ("creating round from type : "+thisRoundTypeInfo);
       var newRoundComment = $('#input_newRoundComment').val();
       var newRoundID = uuid();
         //status
@@ -466,12 +475,12 @@ function cds_createRound (){
                     ', "id" : "'+thisRoundTypeInfo.id+'"'+
                     ', "name" : "'+thisRoundTypeInfo.name+'"}'+
                     '}';
-      //console.log(newRoundData);
+      //// console.log(newRoundData);
       newRoundObj = JSON.parse(newRoundData);
-      //console.log ("new Round Object = ");
-      //console.log (newRoundObj);    
+      //// console.log ("new Round Object = ");
+      //// console.log (newRoundObj);    
       FirebaseClubRef.child("rounds/"+newRoundID).update(newRoundObj, onSaveComplete);
-      console.log ("wrote new  round : "+newRoundID);
+      // console.log ("wrote new  round : "+newRoundID);
       cds_joinRound (newRoundID, thisRoundTypeInfo.numEnds, thisRoundTypeInfo.numArrowsPerEnd);
     });
 
@@ -483,13 +492,13 @@ function cds_joinRound (new_RoundID, new_numEnds, new_numArrowsPerEnd){
       if (error) {
         errortext = "Error saving data to Firebase"; 
         alert (errortext);
-        console.log(errortext);
+        // console.log(errortext);
       } else {
-        console.log('Data saved to Firebase successfully');
+        // console.log('Data saved to Firebase successfully');
       }
     };
 
-  roundID = new_RoundID;
+  roundID = new_RoundID;  
   //Data
   var roundData = '{"data" : [';
   for (var i = 0; i < new_numEnds; i++) {
@@ -504,7 +513,7 @@ function cds_joinRound (new_RoundID, new_numEnds, new_numArrowsPerEnd){
   n = roundData.length;
   trimData = roundData.substring(0, n-1);
   roundData = trimData + ']}';
-  console.log (roundData);
+  // console.log (roundData);
   dataObj = JSON.parse(roundData);
   if (dataObj == null) {alert ("Error Parsing JSON for round Data");};
   FirebaseClubRef.child("rounds/"+roundID+"/scores/users/"+userID).update(dataObj, onSaveComplete);
@@ -526,7 +535,7 @@ function cds_joinRound (new_RoundID, new_numEnds, new_numArrowsPerEnd){
 
   //updatedAt
   var updatedAt = '{"updatedAt" : ' +Date.now() + '}';
-  console.log (updatedAt);
+  // console.log (updatedAt);
   updatedAtObj = JSON.parse (updatedAt);
   FirebaseClubRef.child("rounds/"+roundID+"/scores/users/"+userID).update(updatedAtObj, onSaveComplete);
   FirebaseClubRef.child("rounds/"+roundID+"/scores/").update(updatedAtObj, onSaveComplete);
@@ -543,9 +552,9 @@ function cds_saveEnd (endNo){
       if (error) {
         errortext = "Error saving data to Firebase"; 
         alert (errortext);
-        console.log(errortext);
+        // console.log(errortext);
       } else {
-        console.log('Data saved to Firebase successfully');
+        // console.log('Data saved to Firebase successfully');
       }
     };
 
@@ -558,7 +567,7 @@ function cds_saveEnd (endNo){
   n = endData.length;
   var trimData = endData.substring(0, n-1);
   roundData = trimData + "]}";
-  console.log (roundData);
+  // console.log (roundData);
   dataObj = JSON.parse(roundData);
   if (dataObj == null) {alert ("Error Parsing JSON for score data");};
   FirebaseClubRef.child("rounds/"+roundID+"/scores/users/"+userID+"/data/").update(dataObj, onSaveComplete);
@@ -575,7 +584,7 @@ function cds_saveEnd (endNo){
   
   //updatedAt
   var updatedAt = '{"updatedAt" : ' +Date.now() + '}';
-  console.log (updatedAt);
+  // console.log (updatedAt);
   updatedAtObj = JSON.parse (updatedAt);
   FirebaseClubRef.child("rounds/"+roundID+"/scores/users/"+userID).update(updatedAtObj, onSaveComplete);
   FirebaseClubRef.child("rounds/"+roundID+"/scores/").update(updatedAtObj, onSaveComplete);
@@ -638,9 +647,9 @@ function saveEndFirebase (user, round, end, endscores, total) { // - - - - - - -
     if (error) {
       errortext = "Error saving scores/user/round/data"; 
       alert (errortext);
-      console.log(errortext);
+      // console.log(errortext);
     } else {
-      //console.log('Synchronization succeeded');
+      //// console.log('Synchronization succeeded');
     }
   };
 
@@ -648,10 +657,10 @@ function saveEndFirebase (user, round, end, endscores, total) { // - - - - - - -
     if (error) {
       errortext = "Error saving scores/user/round/total"; 
       alert (errortext);
-      console.log(errortext);
+      // console.log(errortext);
     } else {
       alert ("save good");
-      //console.log('Synchronization succeeded');
+      //// console.log('Synchronization succeeded');
     }
   };
 
@@ -659,9 +668,9 @@ function saveEndFirebase (user, round, end, endscores, total) { // - - - - - - -
     if (error) {
       errortext = "Error saving rounds/round/scores"; 
       alert (errortext);
-      console.log(errortext);
+      // console.log(errortext);
     } else {
-      //console.log('Synchronization succeeded');
+      //// console.log('Synchronization succeeded');
     }
   };  
 
@@ -669,10 +678,10 @@ function saveEndFirebase (user, round, end, endscores, total) { // - - - - - - -
     if (error) {
       errortext = "Error saving users/user/scores"; 
       alert (errortext);
-      console.log(errortext);
+      // console.log(errortext);
     } else {
       alert ("good");
-      //console.log('Synchronization succeeded');
+      //// console.log('Synchronization succeeded');
     }
   }; 
 

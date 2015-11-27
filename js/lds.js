@@ -5,14 +5,14 @@ function lds_saveAuthInfo (new_clubname, new_email, new_password) {
                     email : new_email,
                     password : new_password};
     window.localStorage.setItem ("caweb_authinfo", JSON.stringify(authObj));
-    console.log("Auth Info saved to local storage as "+ JSON.stringify(authObj));
+    //console.log("Auth Info saved to local storage as "+ JSON.stringify(authObj));
 }//lds_saveAuthInfo
 
 
 function lds_loadAuthInfo () {
     var authObj = JSON.parse (window.localStorage.getItem("caweb_authinfo"));
-    console.log (window.localStorage.getItem("caweb_authinfo"));
-    console.log ("Auth info read from local storage as :" + authObj);
+    //console.log (window.localStorage.getItem("caweb_authinfo"));
+    //console.log ("Auth info read from local storage as :" + authObj);
     return authObj;
 }//lds_loadAuthInfo
 

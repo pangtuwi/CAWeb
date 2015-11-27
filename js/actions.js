@@ -1,15 +1,15 @@
 function action_login(){
 	FirebaseEmail = $(".inputEmail").val();
-	console.log ("Email is: ")+FirebaseEmail;
+	// console.log ("Email is: ")+FirebaseEmail;
 	FirebaseClubName = $(".inputClubName").val();
-	console.log ("Club is: ")+FirebaseClubName;
+	// console.log ("Club is: ")+FirebaseClubName;
 	FirebasePassword = $(".inputPassword").val();
-	console.log ("Password is: ")+FirebasePassword;
+	// console.log ("Password is: ")+FirebasePassword;
 	lds_saveAuthInfo(FirebaseClubName, FirebaseEmail, FirebasePassword);
 }
 
 function action_editScores(thisEndID){
-	console.log ("running action_editscores");
+	// console.log ("running action_editscores");
 
 	currentEnd = thisEndID;
 	if (currentArrow == numArrowsPerEnd) currentArrow = 0;
@@ -104,28 +104,28 @@ function writeCurrentEnd () {
 
 function score (arrowVal) {
 	//Set new Arrow Value
-	console.log("in Function score");
-	console.log ("...currentRoundData = "+ currentRoundData);
-	console.log ("...currentEnd = "+ currentEnd);
-	console.log ("...currentArrow = "+ currentArrow);
-	console.log ("...numEnds = "+ numEnds);
-	console.log ("...numArrowsPerEnd = "+ numArrowsPerEnd);
+	// console.log("in Function score");
+	// console.log ("...currentRoundData = "+ currentRoundData);
+	// console.log ("...currentEnd = "+ currentEnd);
+	// console.log ("...currentArrow = "+ currentArrow);
+	// console.log ("...numEnds = "+ numEnds);
+	// console.log ("...numArrowsPerEnd = "+ numArrowsPerEnd);
 
 	oldArrowVal = parseInt (currentRoundData[currentEnd][currentArrow]);
 	if (oldArrowVal == -1) {
 		totalArrows +=1;
 		oldArrowVal = 0;
 	};
-	//console.log ("oldArrowVal = "+ oldArrowVal);
+	//// console.log ("oldArrowVal = "+ oldArrowVal);
 	currentRoundData[currentEnd][currentArrow] = arrowVal;
-	//console.log ("currentRoundData = "+ currentRoundData);
+	//// console.log ("currentRoundData = "+ currentRoundData);
 
 	//Recalculate End
 	currentEndTotal = 0;
 	$.each(currentRoundData[currentEnd],function() {
     	if (this != -1) currentEndTotal += parseInt(this);
 	});
-	console.log ("currentEndTotal = "+ currentEndTotal);
+	// console.log ("currentEndTotal = "+ currentEndTotal);
 
 	//recalculate totals
 	totalScore = parseInt(totalScore) + parseInt(arrowVal) - parseInt(oldArrowVal);
@@ -147,36 +147,36 @@ function score (arrowVal) {
 
 	//write arrow scores to page
 	writeCurrentEnd();
-	console.log ("Scored "+ arrowVal + ", Total = " + totalScore +
-			 ", currentArrow = "+ currentArrow + ", totalArrows = "+ totalArrows);
+	// console.log ("Scored "+ arrowVal + ", Total = " + totalScore +
+	//		 ", currentArrow = "+ currentArrow + ", totalArrows = "+ totalArrows);
 
 	//Check if Complete
 	
 } //score
 
 function deleteScore(){
-	console.log("in Function DELETE score");
-	console.log ("...currentRoundData = "+ currentRoundData);
-	console.log ("...currentEnd = "+ currentEnd);
-	console.log ("...currentArrow = "+ currentArrow);
-	console.log ("...numEnds = "+ numEnds);
-	console.log ("...numArrowsPerEnd = "+ numArrowsPerEnd);
+	// console.log("in Function DELETE score");
+	// console.log ("...currentRoundData = "+ currentRoundData);
+	// console.log ("...currentEnd = "+ currentEnd);
+	// console.log ("...currentArrow = "+ currentArrow);
+	// console.log ("...numEnds = "+ numEnds);
+	// console.log ("...numArrowsPerEnd = "+ numArrowsPerEnd);
 
 	//Set Current Arrow
 	if (currentArrow > 0) currentArrow = parseInt(currentArrow) - 1;
 
 	oldArrowVal = parseInt (currentRoundData[currentEnd][currentArrow]);
 	if (oldArrowVal == -1) oldArrowVal = 0;
-	console.log ("oldArrowVal = "+ oldArrowVal);
+	// console.log ("oldArrowVal = "+ oldArrowVal);
 	currentRoundData[currentEnd][currentArrow] = -1;
-	console.log ("currentRoundData = "+ currentRoundData);
+	// console.log ("currentRoundData = "+ currentRoundData);
 
 	//Recalculate End
 	currentEndTotal = 0;
 	$.each(currentRoundData[currentEnd],function() {
     	if (this != -1) currentEndTotal += parseInt(this);
 	});
-	console.log ("currentEndTotal = "+ currentEndTotal);
+	// console.log ("currentEndTotal = "+ currentEndTotal);
 
 	//recalculate totals
 	totalArrows -= 1;
@@ -203,6 +203,6 @@ function getRoundTotal (thisRound) {
 			if (parseInt(this) != -1) total += parseInt(this);
 		});
 	});
-	console.log (" total calculated as "+ total);
+	// console.log (" total calculated as "+ total);
 	return total;
 }

@@ -35,31 +35,37 @@ function controller_mainpage(){
 }
 
 function controller_myRounds(){
-	controller_hideall();
-	$("#myRounds").show();
-	$("#pageTitle").html("CloudArchery - My Rounds");
-	$(".icon-left-nav").show();
-	$(".icon-left-nav").on ("click", controller_mainpage);
-	cds_getMyRoundsList();
+	if (FirebaseAuthenticated){
+		controller_hideall();
+		$("#myRounds").show();
+		$("#pageTitle").html("CloudArchery - My Rounds");
+		$(".icon-left-nav").show();
+		$(".icon-left-nav").on ("click", controller_mainpage);
+		cds_getMyRoundsList();
+	};
 }
 
 function controller_joinRoundList(){
-	controller_hideall();
-	$("#joinList").show();
-	$("#pageTitle").html("CloudArchery - Join Round");
-	$(".icon-left-nav").show();
-	$(".icon-left-nav").on ("click", controller_mainpage);
-	cds_getJoinableRoundsList();
+	if (FirebaseAuthenticated){
+		controller_hideall();
+		$("#joinList").show();
+		$("#pageTitle").html("CloudArchery - Join Round");
+		$(".icon-left-nav").show();
+		$(".icon-left-nav").on ("click", controller_mainpage);
+		cds_getJoinableRoundsList();
+	};
 }
 
 function controller_createRound(){
-	controller_hideall();
-	$("#createRound").show();
-	$("#pageTitle").html("CloudArchery - Create Round");
-	$(".icon-left-nav").show();
-	$(".icon-left-nav").on ("click", controller_mainpage);
-	newRoundTypeID = roundTypeID;
-	$("#roundTypeName").html(roundTypeName);
+	if (FirebaseAuthenticated){
+		controller_hideall();
+		$("#createRound").show();
+		$("#pageTitle").html("CloudArchery - Create Round");
+		$(".icon-left-nav").show();
+		$(".icon-left-nav").on ("click", controller_mainpage);
+		newRoundTypeID = roundTypeID;
+		$("#roundTypeName").html(roundTypeName);
+	};
 }
 
 function controller_roundTypeList(){
@@ -80,19 +86,23 @@ function controller_settings(){
 }
 
 function controller_statistics(){
-	controller_hideall();
-	$("#statistics").show();
-	$("#pageTitle").html("CloudArchery - Statistics");
-	$(".icon-left-nav").show();
-	$(".icon-left-nav").on ("click", controller_settings);
+	if (FirebaseAuthenticated){
+		controller_hideall();
+		$("#statistics").show();
+		$("#pageTitle").html("CloudArchery - Statistics");
+		$(".icon-left-nav").show();
+		$(".icon-left-nav").on ("click", controller_settings);
+	};
 }
 
 function controller_backup(){
-	controller_hideall();
-	$("#backup").show();
-	$("#pageTitle").html("CloudArchery - Backup");
-	$(".icon-left-nav").show();
-	$(".icon-left-nav").on ("click", controller_settings);
+	if (FirebaseAuthenticated){
+		controller_hideall();
+		$("#backup").show();
+		$("#pageTitle").html("CloudArchery - Backup");
+		$(".icon-left-nav").show();
+		$(".icon-left-nav").on ("click", controller_settings);
+	};
 }
 
 function controller_about(){
@@ -119,10 +129,10 @@ function controller_addRoundTypeController(thisRoundTypeID, thisRoundTypeName){
 	$('#'+thisRoundTypeID).on ("click", function(){
 		roundTypeID = thisRoundTypeID;
 		roundTypeName = thisRoundTypeName;
-		console.log ("RoundTypeName set to "+ thisRoundTypeName);
+		// console.log ("RoundTypeName set to "+ thisRoundTypeName);
 		controller_createRound();
     });
-    //console.log ("controller added for RoundTypeID = "+thisRoundTypeID);
+    //// console.log ("controller added for RoundTypeID = "+thisRoundTypeID);
 }
 
 function controller_addJoinRoundController(thisRoundID, thisNumEnds, thisNumArrowsPerEnd){
@@ -148,13 +158,18 @@ function controller_addEndController(thisNavID, thisRoundID, thisEndID){
 		$(".btn-cancel-edit").on("click", function() {
 			$("#"+thisRoundID).trigger("click");
 		});
-		console.log ("end controller added");
+		// console.log ("end controller added");
 		action_editScores(thisEndID);
     });
 }
 
+function doNothing(){
+
+}//doNothing
+
 function controller_initialise(){
 	controller_mainpage();
+	$(".onlyIfAuth").css('color', 'grey');
 
 	$("#btn-login").on ("click", function (){
 		action_login();
