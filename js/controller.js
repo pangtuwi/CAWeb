@@ -30,7 +30,7 @@ function controller_login(){
 function controller_mainpage(){
 	controller_hideall();
 	$("#caweb").show();
-	$("#pageTitle").html("CloudArchery");
+	$("#pageTitle").html("CloudArchery v"+ CAWebVersion);
 	cds_checkDatabaseConnection();
 }
 
@@ -67,7 +67,7 @@ function controller_roundTypeList(){
 	$("#roundTypeList").show();
 	$("#pageTitle").html("CloudArchery - Select Round Type");
 	$(".icon-left-nav").show();
-	$(".icon-left-nav").on ("click", controller_createRound(null, null));
+	$(".icon-left-nav").on ("click", controller_createRound);
 	cds_getRoundTypeList();
 }
 
@@ -115,10 +115,14 @@ function controller_addRoundController(thisRoundID){
     });
 }
 
-function controller_addRoundTypeController(thisRoundTypeID){
+function controller_addRoundTypeController(thisRoundTypeID, thisRoundTypeName){
 	$('#'+thisRoundTypeID).on ("click", function(){
-		controller_createRound(thisRoundTypeID, "");
+		roundTypeID = thisRoundTypeID;
+		roundTypeName = thisRoundTypeName;
+		console.log ("RoundTypeName set to "+ thisRoundTypeName);
+		controller_createRound();
     });
+    //console.log ("controller added for RoundTypeID = "+thisRoundTypeID);
 }
 
 function controller_addJoinRoundController(thisRoundID, thisNumEnds, thisNumArrowsPerEnd){
@@ -157,6 +161,11 @@ function controller_initialise(){
 		controller_mainpage()
 	});
 
+	$("#btn-createRound").on ("click", function (){
+		cds_createRound ();
+		controller_mainpage()
+	});
+
 	$("#nav-myRounds").on ("click", controller_myRounds);
 	$("#nav-joinRoundList").on ("click", controller_joinRoundList);
 	$("#nav-createRound").on ("click", controller_createRound);
@@ -166,5 +175,7 @@ function controller_initialise(){
 	$("#nav-statistics").on ("click", controller_statistics);
 	$("#nav-backup").on ("click", controller_backup);
 	$("#nav-about").on ("click", controller_about);
+
+	$("#version").html ("Version "+ CAWebVersion);
 }
 

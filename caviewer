@@ -141,7 +141,7 @@
           </li>
         </ul>
         <form>
-          <textarea id="input_newRoundComment" rows="5" placeholder="Description / Comment"></textarea>
+          <textarea rows="5" placeholder="Description / Comment"></textarea>
           <button id="btn-createRound" class="btn btn-positive btn-block" >Create</button>
         </form>
       </div>
@@ -234,36 +234,42 @@
     </div><!-- /.scores  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
     <div class="content" id="editScores">
-        <div id="endScores" class="card"></div>
-        <div class="card button-container">
-          <!-- data-score is an html data attribute.  see https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes-->
-          <span class="button-group">
-            <button class="btn btn-gold" data-score="10">10</button>
+        <div id="endScores" class="card">
+        </div>
+        <div class="card">
+          <p >
+            <button class="btn btn-gold" data-score="10" > 10 </button>
+            <!-- data-score is an html data attribute.  see https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes-->
+
             <button class="btn btn-gold" data-score="9"> &nbsp;9&nbsp; </button>
-          </span>
-          <span class="button-group">
+          </p>
+          <p>
             <button class="btn btn-red" data-score="8"> &nbsp;8&nbsp; </button>
             <button class="btn btn-red" data-score="7"> &nbsp;7&nbsp; </button>
-          </span>
-          <span class="button-group">
+          </p>
+          <p>
             <button class="btn btn-blue" data-score="6"> &nbsp;6&nbsp; </button>
             <button class="btn btn-blue" data-score="5"> &nbsp;5&nbsp; </button>
-          </span>
-          <span class="button-group">
+          </p>
+          <p>
             <button class="btn btn-black" data-score="4"> &nbsp;4&nbsp; </button>
             <button class="btn btn-black" data-score="3"> &nbsp;3&nbsp; </button>
-          </span>
-          <span class="button-group">
+          </p>
+          <p>
             <button class="btn btn-white" data-score="2"> &nbsp;2&nbsp; </button>
             <button class="btn btn-white" data-score="1"> &nbsp;1&nbsp; </button>
             <button class="btn btn-white" data-score="0"> miss </button>
-          </span>
+          </p>
         </div>
 
-        <div class="card button-container">
-          <button class="btn btn-action btn-del" >&lsaquo; DEL</button>
-          <button class="btn btn-action btn-clr">&laquo; CLR</button>
-          <button class="btn btn-action btn-save">SAVE</button>
+        <div class="card">
+          <button class="btn btn-action btn-del" >&lsaquo; del</button>
+          <button class="btn btn-action btn-clr">&laquo; clr</button>
+        </div>
+
+        <div class="card">
+          <button class="btn btn-action btn-save">Save</button>
+          <button class="btn btn-action btn-cancel-edit">Cancel</button>
         </div>
     </div> <!-- /.backup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
@@ -271,7 +277,7 @@
     <div id="about" class="content">
       <div class="card">
         <h3>CloudArchery Mobile Web</h3>
-        <h4 id="version">Version X.X.X</h4>
+        <h4>Version 0.0.2</h4>
         <p>Online version of the CloudArchery Android application</p>
         <p>Create rounds, join rounds, save your archery scores, compete against other club members.</p>
         <p>Visit http://cloudarchery.com for more information</p>

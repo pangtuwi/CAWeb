@@ -1,3 +1,4 @@
+var CAWebVersion = "0.3";
 var FirebaseRef = new Firebase('https://cadev.firebaseio.com/');
 var FirebaseConnectedRef = FirebaseRef.child('.info/connected');
 var FirebaseRoundTypesRef = FirebaseRef.child('roundTypes/data/');
@@ -22,6 +23,8 @@ var FirebaseAuthenticated = false;
 var users = {};
 var scoreArray = null;
 var roundID;
+var roundTypeID;
+var roundTypeName = "Select Round Type";
 var userID;
 var totalScore = 0;
 var totalArrows = 0;
@@ -207,8 +210,9 @@ function cds_getRoundTypeList () {
                     thisRoundType.name+
                     '<p>'+thisRoundType.description+'</p>' +
                     '</a></li>');  
-    controller_addRoundTypeController (thisRound.id);
+    controller_addRoundTypeController (thisRoundType.id, thisRoundType.name);
   });
+  console.log ("...done");
 };  //getRoundTypeList
 
 function cds_getMyRoundsList () {   
@@ -431,6 +435,47 @@ function cds_getClubDetails (){
 
 //- - - - - - - - - - - - - - - - - - -  SAVE DATA TO CDS - - - - - - - - - - - - - - - - - - - - //
 
+function cds_createRound (){
+  var onSaveComplete = function(error) {
+      if (error) {
+        errortext = "Error saving data to Firebase"; 
+        alert (errortext);
+        console.log(errortext);
+      } else {
+        console.log('Data saved to Firebase successfully');
+      }
+    };
+
+    var new_RoundTypeID = roundTypeID;
+    var thisFirebaseRoundTypesRef = FirebaseRoundTypesRef.child(newRoundTypeID);
+    thisFirebaseRoundTypesRef.once('value', function(snapshot) {
+      var thisRoundTypeInfo = snapshot.val();
+      console.log ("creating round from type : "+thisRoundTypeInfo);
+      var newRoundComment = $('#input_newRoundComment').val();
+      var newRoundID = uuid();
+        //status
+      var newRoundData =  '{"id" : "' + newRoundID +'"'+
+                    ', "comment" : "'+ newRoundComment + '"'+
+                    ', "createdAt" : ' +Date.now()+
+                    ', "creator" : {"id": "'+ userID+'"'+
+                    ', "name" : "'+FirebaseName+'"}'+
+                    ', "isPublic" : true'+
+                    ', "numEnds" :'+thisRoundTypeInfo.numEnds+
+                    ', "numArrowsPerEnd" : '+thisRoundTypeInfo.numArrowsPerEnd+
+                    ', "roundType" : {"description" : "'+ thisRoundTypeInfo.description+'"'+
+                    ', "id" : "'+thisRoundTypeInfo.id+'"'+
+                    ', "name" : "'+thisRoundTypeInfo.name+'"}'+
+                    '}';
+      //console.log(newRoundData);
+      newRoundObj = JSON.parse(newRoundData);
+      //console.log ("new Round Object = ");
+      //console.log (newRoundObj);    
+      FirebaseClubRef.child("rounds/"+newRoundID).update(newRoundObj, onSaveComplete);
+      console.log ("wrote new  round : "+newRoundID);
+      cds_joinRound (newRoundID, thisRoundTypeInfo.numEnds, thisRoundTypeInfo.numArrowsPerEnd);
+    });
+
+}; //cds_createRound
 
 function cds_joinRound (new_RoundID, new_numEnds, new_numArrowsPerEnd){
 
@@ -444,6 +489,7 @@ function cds_joinRound (new_RoundID, new_numEnds, new_numArrowsPerEnd){
       }
     };
 
+  roundID = new_RoundID;
   //Data
   var roundData = '{"data" : [';
   for (var i = 0; i < new_numEnds; i++) {
