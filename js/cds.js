@@ -1,4 +1,4 @@
-var CAWebVersion = "0.3.1";
+var CAWebVersion = "0.3.2";
 var FirebaseRef = new Firebase('https://cadev.firebaseio.com/');
 var FirebaseConnectedRef = FirebaseRef.child('.info/connected');
 var FirebaseRoundTypesRef = FirebaseRef.child('roundTypes/data/');
@@ -211,7 +211,7 @@ function cds_getRoundTypeList () {
 
   // console.log("loading RoundType List");    
   $('#roundTypeUL').html("");         
-  FirebaseRoundTypesRef.on('child_added', function(snapshot) {
+  FirebaseRoundTypesRef.orderByChild('displayOrder').on('child_added', function(snapshot) {
     var thisRoundType = snapshot.val(); 
     if (thisRoundType.indoor) {isIndoor = "true"; } else {isIndoor = "false"};
     $('#roundTypeUL').append ('<li class="table-view-cell">'+
