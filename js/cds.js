@@ -193,22 +193,6 @@ function cds_getRoundsList () {
 
 function cds_getRoundTypeList () {   
 
-  /* EXAMPLE JSON from CADEV.firebaseio.com
-    "02b96ac7-e553-4e1d-a0fb-758838165657" : {
-        "classification" : "GNAS",
-        "description" : "5 dozen at 20 yards, indoors, 60cm",
-        "id" : "02b96ac7-e553-4e1d-a0fb-758838165657",
-        "indoor" : true,
-        "name" : "Portsmouth",
-        "numArrowsPerEnd" : 6,
-        "numEnds" : 10,
-        "targets" : [ null, {
-          "distance" : "20yds",
-          "faceSize" : "60cm",
-          "numEnds" : 10
-        } ]
-      },*/
-
   // console.log("loading RoundType List");    
   $('#roundTypeUL').html("");         
   FirebaseRoundTypesRef.orderByChild('displayOrder').on('child_added', function(snapshot) {
