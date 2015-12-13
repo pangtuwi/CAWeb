@@ -102,6 +102,7 @@ function controller_backup(){
 		$("#pageTitle").html("CloudArchery - Backup");
 		$(".icon-left-nav").show();
 		$(".icon-left-nav").on ("click", controller_settings);
+		action_getBackupData();
 	};
 }
 

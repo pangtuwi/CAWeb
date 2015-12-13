@@ -53,6 +53,12 @@ function action_joinRound(thisRoundID, thisNumEnds, thisNumApE){
 	cds_loadJoinRoundInfo (thisRoundID);
 }
 
+function action_getBackupData(){
+	$("#link_backup").attr ("href", "data:text/plain;charset=utf-8," + 
+            encodeURIComponent("{}"));
+    $("#link_backup").text("wait... Preparing your Data...");
+	cds_generateBackupData();
+}
 
 function arrowClassColor (currentArrowValue) {
 	var currentArrowClass = "";

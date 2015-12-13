@@ -1,4 +1,4 @@
-var CAWebVersion = "0.3.2";
+var CAWebVersion = "0.3.3";
 var FirebaseRef = new Firebase('https://cadev.firebaseio.com/');
 var FirebaseConnectedRef = FirebaseRef.child('.info/connected');
 var FirebaseRoundTypesRef = FirebaseRef.child('roundTypes/data/');
@@ -8,6 +8,7 @@ var FirebaseClubRef;
 var usersRef;
 var roundsRef;
 var myRoundsRef;
+var myBackupRef;
 var joinableRoundsRef;
 
 var FirebaseClubName = "";
@@ -35,6 +36,9 @@ var currentArrow = 0;
 var complete = false;
 var currentRoundData = [];
 var endTotal = 0;
+var backupCount = 0;
+var backupCounter = 0;
+var myJSON = "";
 
 
 //-- Login Functions --//
@@ -62,6 +66,7 @@ function cds_authHandler(error, authData) {
         //alert ("Welcome "+ FirebaseName);
         userID = FirebaseUserID;
         myRoundsRef = FirebaseClubRef.child("users/"+FirebaseUserID+"/rounds");
+        myBackupRef = FirebaseClubRef.child("users/"+FirebaseUserID);
       }        
     });
   }
@@ -424,7 +429,40 @@ function cds_createUser (Email) {
 
 function cds_getClubDetails (){
   FirebaseRef.child(clubID)
-}
+} //cds_getClubDetails
+
+
+function cds_generateBackupData(){
+  myJSON = '{"users" : {"'+userID+'" : ';
+
+  myBackupRef.once('value', function(snapshot) {
+    var userObj = snapshot.val();
+    myJSON += JSON.stringify(userObj);
+    myJSON += '}, "rounds" : {';
+    roundsListObj = userObj.rounds;
+    backupCount = Object.keys(roundsListObj).length;
+    
+    for (var thisRoundID in roundsListObj) {
+      //console.log (thisRoundID, " =>", roundsListObj[thisRoundID]);  
+      thisRoundRef = roundsRef.child(thisRoundID);
+      thisRoundRef.once('value', function(snapshot2) {
+        var thisRoundStr = '"'+thisRoundID + '" : ' + JSON.stringify(snapshot2.val());
+        backupCounter ++;
+        myJSON += thisRoundStr;
+        if (backupCounter < backupCount) {
+          myJSON += ', ';
+          //console.log ("found # ", backupCounter);
+        } else {
+          myJSON += '}}';
+          $("#link_backup").attr ("href", "data:text/plain;charset=utf-8," + 
+            encodeURIComponent(myJSON));
+          $("#link_backup").text("done... Click to download your Data");
+          //console.log ("found last # ", backupCounter);
+        }
+      });
+    } 
+  });
+} //cds_generateBackupData
 
 //- - - - - - - - - - - - - - - - - - -  SAVE DATA TO CDS - - - - - - - - - - - - - - - - - - - - //
 
