@@ -1,4 +1,4 @@
-var CAWebVersion = "0.3.3";
+var CAWebVersion = "0.3.4";
 var FirebaseRef = new Firebase('https://cadev.firebaseio.com/');
 var FirebaseConnectedRef = FirebaseRef.child('.info/connected');
 var FirebaseRoundTypesRef = FirebaseRef.child('roundTypes/data/');
@@ -488,6 +488,7 @@ function cds_createRound (){
       var newRoundData =  '{"id" : "' + newRoundID +'"'+
                     ', "comment" : "'+ newRoundComment + '"'+
                     ', "createdAt" : ' +Date.now()+
+                    ', "updatedAt" : ' +Date.now()+
                     ', "creator" : {"id": "'+ userID+'"'+
                     ', "name" : "'+FirebaseName+'"}'+
                     ', "isPublic" : true'+
